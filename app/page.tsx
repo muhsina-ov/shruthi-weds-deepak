@@ -9,7 +9,7 @@ const MAPS = {
   morning: "https://maps.app.goo.gl/2wmqyQn2TaDFKkFo6?g_st=ic",
   evening: "https://maps.app.goo.gl/EeiMpJn7pcFr11Z9A?g_st=ic",
 };
-const SOUNDTRACK_URL = process.env.NEXT_PUBLIC_WEDDING_SONG_URL || "";
+const SOUNDTRACK_URL = process.env.NEXT_PUBLIC_WEDDING_SONG_URL || "/wedding-song.mp3";
 
 function ScratchReveal() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -74,8 +74,13 @@ export default function Home() {
     image.src = "/art/01-opening-hero.webp";
     if (!SOUNDTRACK_URL) return;
     const audio = new Audio(SOUNDTRACK_URL);
-    audio.addEventListener("canplaythrough", () => setAudioReady(true), { once: true });
+    audio.preload = "auto";
+    const markReady = () => setAudioReady(true);
+    audio.addEventListener("canplaythrough", markReady, { once: true });
+    audio.addEventListener("canplay", markReady, { once: true });
+    audio.addEventListener("loadedmetadata", markReady, { once: true });
     audio.addEventListener("error", () => setAudioReady(false), { once: true });
+    audio.load();
   }, []);
 
   useEffect(() => {
@@ -100,23 +105,70 @@ export default function Home() {
       setOpeningRequested(true);
       openingFallbackRef.current = setTimeout(finishOpening, 3600);
     }
-    if (withMusic && audioReady && audioRef.current) {
-      audioRef.current.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
+    if (withMusic && audioRef.current) {
+      const audio = audioRef.current;
+      const playFromTwoSeconds = () => {
+        try {
+          audio.currentTime = 2;
+        } catch (_) {}
+        audio.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
+      };
+
+      if (audio.readyState >= 1) {
+        playFromTwoSeconds();
+      } else {
+        audio.addEventListener(
+          "loadedmetadata",
+          () => {
+            try {
+              audio.currentTime = 2;
+            } catch (_) {}
+          },
+          { once: true }
+        );
+        audio.play().then(() => {
+          try {
+            audio.currentTime = 2;
+          } catch (_) {}
+          setPlaying(true);
+        }).catch(() => setPlaying(false));
+      }
     }
   }
 
   function toggleMusic() {
     const audio = audioRef.current;
     if (!audio) return;
-    if (playing) { audio.pause(); setPlaying(false); }
-    else audio.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
+    if (playing) {
+      audio.pause();
+      setPlaying(false);
+    } else {
+      if (audio.currentTime < 2) {
+        try {
+          audio.currentTime = 2;
+        } catch (_) {}
+      }
+      audio.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
+    }
   }
 
   return (
     <main id="main" className={`site-shell ${openingRequested && !opened ? "opening-turning" : ""} ${opened ? "invitation-open" : ""}`}>
       <a className="skip-link" href="#story" onClick={finishOpening}>Skip opening</a>
       <MotionDirector opened={opened} openingRequested={openingRequested} onOpenComplete={finishOpening} />
-      {SOUNDTRACK_URL && <audio ref={audioRef} src={SOUNDTRACK_URL} loop preload="none" aria-hidden="true" />}
+      {SOUNDTRACK_URL && (
+        <audio
+          ref={audioRef}
+          src={SOUNDTRACK_URL}
+          loop
+          preload="auto"
+          aria-hidden="true"
+          onCanPlay={() => setAudioReady(true)}
+          onLoadedMetadata={() => setAudioReady(true)}
+          onPlay={() => setPlaying(true)}
+          onPause={() => setPlaying(false)}
+        />
+      )}
 
       <div className="opening" aria-hidden={opened}>
         <div className="opening-backdrop" aria-hidden="true" />
@@ -130,8 +182,8 @@ export default function Home() {
               <div className="book-gold-rule" />
               <p className="book-date">Friday · 26 February 2027</p>
               <p className="book-tamil" lang="ta">ஒளியும் ஒலியும் சேரும் தருணம்,<br />உங்கள் வருகையால் சிறக்கும் இன்பத் தருணம்.</p>
-              <button type="button" className="opening-button" onClick={() => openInvitation(audioReady)} disabled={openingRequested} tabIndex={opened ? -1 : 0}>Turn the page <span aria-hidden="true">→</span></button>
-              {audioReady && <button type="button" className="silent-button" onClick={() => openInvitation(false)} disabled={openingRequested} tabIndex={opened ? -1 : 0}>Enter without music</button>}
+              <button type="button" className="opening-button" onClick={() => openInvitation(true)} disabled={openingRequested} tabIndex={opened ? -1 : 0}>Turn the page <span aria-hidden="true">→</span></button>
+              {SOUNDTRACK_URL && <button type="button" className="silent-button" onClick={() => openInvitation(false)} disabled={openingRequested} tabIndex={opened ? -1 : 0}>Enter without music</button>}
             </div>
             <span className="book-bottomline">A story of sound, light &amp; everyone we love</span>
           </div>
@@ -145,8 +197,8 @@ export default function Home() {
               <span className="opening-mobile-overline">A wedding invitation</span>
               <p className="opening-mobile-title">Shruthi <i>&amp;</i><br />Deepak</p>
               <p className="opening-mobile-date">26 February 2027 · New Jersey</p>
-              <button type="button" className="opening-button" onClick={() => openInvitation(audioReady)} disabled={openingRequested} tabIndex={opened ? -1 : 0}>Turn the page <span aria-hidden="true">→</span></button>
-              {audioReady && <button type="button" className="silent-button" onClick={() => openInvitation(false)} disabled={openingRequested} tabIndex={opened ? -1 : 0}>Enter without music</button>}
+              <button type="button" className="opening-button" onClick={() => openInvitation(true)} disabled={openingRequested} tabIndex={opened ? -1 : 0}>Turn the page <span aria-hidden="true">→</span></button>
+              {SOUNDTRACK_URL && <button type="button" className="silent-button" onClick={() => openInvitation(false)} disabled={openingRequested} tabIndex={opened ? -1 : 0}>Enter without music</button>}
             </div>
             <span className="opening-art-note">Colorado → Bridgewater → forever</span>
           </div>
@@ -164,7 +216,7 @@ export default function Home() {
           <a className="header-rsvp" href="#closing">The invitation <span aria-hidden="true">↗</span></a>
         </nav>
       </header>
-      {audioReady && opened && <button className="music-toggle" type="button" onClick={toggleMusic} aria-label={playing ? "Pause music" : "Play music"}>{playing ? "♪ Sound on" : "♪ Sound off"}</button>}
+      {SOUNDTRACK_URL && opened && <button className="music-toggle" type="button" onClick={toggleMusic} aria-label={playing ? "Pause music" : "Play music"}>{playing ? "♪ Sound on" : "♪ Sound off"}</button>}
 
       <section className="hero" aria-labelledby="hero-title">
         <div className="hero-copy">
