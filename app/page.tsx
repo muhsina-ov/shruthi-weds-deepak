@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type PointerEvent } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 
 const MotionDirector = dynamic(() => import("./motion-director"), { ssr: false });
@@ -10,56 +10,6 @@ const MAPS = {
   evening: "https://maps.app.goo.gl/EeiMpJn7pcFr11Z9A?g_st=ic",
 };
 const SOUNDTRACK_URL = process.env.NEXT_PUBLIC_WEDDING_SONG_URL || "/wedding-song.mp3";
-
-function ScratchReveal() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const drawing = useRef(false);
-  const [revealed, setRevealed] = useState(false);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas || revealed) return;
-    const rect = canvas.getBoundingClientRect();
-    const ratio = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = Math.max(1, Math.round(rect.width * ratio));
-    canvas.height = Math.max(1, Math.round(rect.height * ratio));
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-    ctx.scale(ratio, ratio);
-    ctx.fillStyle = "#d3bb91";
-    ctx.fillRect(0, 0, rect.width, rect.height);
-    ctx.fillStyle = "#7a2634";
-    ctx.font = "600 13px DM Sans, sans-serif";
-    ctx.textAlign = "center";
-    ctx.letterSpacing = "3px";
-    ctx.fillText("A SECOND CELEBRATION AWAITS", rect.width / 2, rect.height / 2 - 8);
-    ctx.font = "italic 22px DM Serif Display, serif";
-    ctx.letterSpacing = "0px";
-    ctx.fillText("scratch to reveal", rect.width / 2, rect.height / 2 + 29);
-  }, [revealed]);
-
-  function scratch(event: PointerEvent<HTMLCanvasElement>) {
-    if (!drawing.current || revealed) return;
-    const canvas = canvasRef.current;
-    const ctx = canvas?.getContext("2d");
-    if (!canvas || !ctx) return;
-    const rect = canvas.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-    ctx.globalCompositeOperation = "destination-out";
-    ctx.beginPath();
-    ctx.arc(x, y, 42, 0, Math.PI * 2);
-    ctx.fill();
-  }
-
-  return (
-    <div className="scratch-wrap">
-      <div className="scratch-underlay"><span>From sacred morning</span><strong>to a night of celebration</strong><span>↓</span></div>
-      {!revealed && <canvas ref={canvasRef} className="scratch-canvas" aria-label="Scratch to reveal the evening celebration" onPointerDown={(event) => { drawing.current = true; event.currentTarget.setPointerCapture(event.pointerId); scratch(event); }} onPointerMove={scratch} onPointerUp={() => { drawing.current = false; }} onPointerCancel={() => { drawing.current = false; }} />}
-      {!revealed && <button type="button" className="scratch-button" onClick={() => setRevealed(true)}>Reveal evening details <span aria-hidden="true">↗</span></button>}
-    </div>
-  );
-}
 
 export default function Home() {
   const [opened, setOpened] = useState(false);
@@ -107,28 +57,28 @@ export default function Home() {
     }
     if (withMusic && audioRef.current) {
       const audio = audioRef.current;
-      const playFromTwoSeconds = () => {
+      const playFromBeginning = () => {
         try {
-          audio.currentTime = 2;
+          audio.currentTime = 0;
         } catch (_) {}
         audio.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
       };
 
       if (audio.readyState >= 1) {
-        playFromTwoSeconds();
+        playFromBeginning();
       } else {
         audio.addEventListener(
           "loadedmetadata",
           () => {
             try {
-              audio.currentTime = 2;
+              audio.currentTime = 0;
             } catch (_) {}
           },
           { once: true }
         );
         audio.play().then(() => {
           try {
-            audio.currentTime = 2;
+            audio.currentTime = 0;
           } catch (_) {}
           setPlaying(true);
         }).catch(() => setPlaying(false));
@@ -143,11 +93,6 @@ export default function Home() {
       audio.pause();
       setPlaying(false);
     } else {
-      if (audio.currentTime < 2) {
-        try {
-          audio.currentTime = 2;
-        } catch (_) {}
-      }
       audio.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
     }
   }
@@ -173,6 +118,8 @@ export default function Home() {
       <div className="opening" aria-hidden={opened}>
         <div className="opening-backdrop" aria-hidden="true" />
         <div className="opening-light" aria-hidden="true" />
+        <div className="opening-curtain opening-curtain-left" aria-hidden="true" />
+        <div className="opening-curtain opening-curtain-right" aria-hidden="true" />
         <div className="opening-book" role="group" aria-label="Shruthi and Deepak's wedding invitation cover">
           <div className="opening-book-left">
             <div className="book-topline"><span>THE WEDDING ALBUM</span><span>VOL. 01 / 2027</span></div>
@@ -180,7 +127,7 @@ export default function Home() {
               <span className="book-overline">You are invited to celebrate</span>
               <p className="book-title">Shruthi <i>&amp;</i><br />Deepak</p>
               <div className="book-gold-rule" />
-              <p className="book-date">Friday · 26 February 2027</p>
+              <p className="book-date">Saturday · 27 February 2027</p>
               <p className="book-tamil" lang="ta">ஒளியும் ஒலியும் சேரும் தருணம்,<br />உங்கள் வருகையால் சிறக்கும் இன்பத் தருணம்.</p>
               <button type="button" className="opening-button" onClick={() => openInvitation(true)} disabled={openingRequested} tabIndex={opened ? -1 : 0}>Turn the page <span aria-hidden="true">→</span></button>
               {SOUNDTRACK_URL && <button type="button" className="silent-button" onClick={() => openInvitation(false)} disabled={openingRequested} tabIndex={opened ? -1 : 0}>Enter without music</button>}
@@ -189,14 +136,13 @@ export default function Home() {
           </div>
           <div className="opening-book-right">
             <img className="opening-cover-paper" src="/art/09-empty-scrapbook-page.webp" alt="" fetchPriority="high" />
-            <img className="opening-garland" src="/art/10-jasmine-rose-garland.webp" alt="" aria-hidden="true" fetchPriority="high" />
             <figure className="cover-temple-card"><img src="/art/03-muhurtham-temple.webp" alt="Illustration of the wedding temple in Bridgewater" /><figcaption>Bridgewater, NJ</figcaption></figure>
             <img className="cover-couple-cutout" src="/art/02-couple-cutout.webp" alt="Illustrated portrait of Shruthi and Deepak" />
             <figure className="cover-colorado-card"><img src="/art/05-colorado-story.webp" alt="Their first spark in Colorado" /><figcaption>where it began</figcaption></figure>
             <div className="opening-mobile-copy">
               <span className="opening-mobile-overline">A wedding invitation</span>
               <p className="opening-mobile-title">Shruthi <i>&amp;</i><br />Deepak</p>
-              <p className="opening-mobile-date">26 February 2027 · New Jersey</p>
+              <p className="opening-mobile-date">27 February 2027 · New Jersey</p>
               <button type="button" className="opening-button" onClick={() => openInvitation(true)} disabled={openingRequested} tabIndex={opened ? -1 : 0}>Turn the page <span aria-hidden="true">→</span></button>
               {SOUNDTRACK_URL && <button type="button" className="silent-button" onClick={() => openInvitation(false)} disabled={openingRequested} tabIndex={opened ? -1 : 0}>Enter without music</button>}
             </div>
@@ -213,7 +159,7 @@ export default function Home() {
           <a href="#story">Our story</a>
           <a href="#events">The day</a>
           <a href="#details">Details</a>
-          <a className="header-rsvp" href="#closing">The invitation <span aria-hidden="true">↗</span></a>
+          <a className="header-rsvp" href="#muhurtham">Muhurtham <span aria-hidden="true">↓</span></a>
         </nav>
       </header>
       {SOUNDTRACK_URL && opened && <button className="music-toggle" type="button" onClick={toggleMusic} aria-label={playing ? "Pause music" : "Play music"}>{playing ? "♪ Sound on" : "♪ Sound off"}</button>}
@@ -222,7 +168,7 @@ export default function Home() {
         <div className="hero-copy">
           <p className="eyebrow">A celebration of sound &amp; light</p>
           <h1 id="hero-title">Shruthi <em>&amp;</em><br />Deepak</h1>
-          <p className="hero-date">Friday, the twenty-sixth of February <span>2027</span></p>
+          <p className="hero-date">Saturday, the twenty-seventh of February <span>2027</span></p>
           <p className="hero-invitation">With full hearts, we invite you to celebrate with us.</p>
           <a className="primary-link" href="#story">Discover our story <span aria-hidden="true">↓</span></a>
         </div>
@@ -253,43 +199,44 @@ export default function Home() {
         <p className="poem-emphasis">So be there for the smiles, the happy tears, and the memories we’ll be retelling for years to come.</p>
       </section>
 
-      <section id="events" className="events-intro" aria-labelledby="events-title"><span className="section-kicker">Friday · 26 February 2027</span><h2 id="events-title">One day.<br /><em>Two celebrations.</em></h2><p>From a sacred morning to an unforgettable night.</p><img className="events-kolam" src="/art/12-rice-flour-kolam.webp" alt="" aria-hidden="true" loading="lazy" /></section>
+      <section id="events" className="events-intro" aria-labelledby="events-title"><span className="section-kicker">Saturday · 27 February 2027</span><h2 id="events-title">One day.<br /><em>Two celebrations.</em></h2><p>From a sacred morning to an unforgettable night.</p><img className="events-kolam" src="/art/12-rice-flour-kolam.webp" alt="" aria-hidden="true" loading="lazy" /></section>
 
-      <section className="event-section morning-event" aria-labelledby="morning-heading">
-        <div className="event-visual"><img src="/art/03-muhurtham-temple.webp" alt="Illustrated exterior of Sri Venkateswara Temple in Bridgewater at sunrise" loading="lazy" /><img className="ceremony-garland" src="/art/10-jasmine-rose-garland.webp" alt="" aria-hidden="true" loading="lazy" /><img className="ceremony-lamp ceremony-lamp-left" src="/art/11-brass-kuthuvilakku.webp" alt="" aria-hidden="true" loading="lazy" /><img className="ceremony-lamp ceremony-lamp-right" src="/art/11-brass-kuthuvilakku.webp" alt="" aria-hidden="true" loading="lazy" /><span className="visual-index">01 / Morning</span></div>
+      <section id="muhurtham" className="event-section morning-event" aria-labelledby="morning-heading">
+        <div className="event-visual"><img src="/art/03-muhurtham-temple.webp" alt="Illustrated exterior of Sri Venkateswara Temple in Bridgewater at sunrise" loading="lazy" /><img className="ceremony-lamp ceremony-lamp-left" src="/art/11-brass-kuthuvilakku.webp" alt="" aria-hidden="true" loading="lazy" /><img className="ceremony-lamp ceremony-lamp-right" src="/art/11-brass-kuthuvilakku.webp" alt="" aria-hidden="true" loading="lazy" /><span className="visual-index">01 / Morning</span></div>
         <div className="event-content">
           <img className="ceremony-kolam" src="/art/12-rice-flour-kolam.webp" alt="" aria-hidden="true" loading="lazy" />
-          <p className="section-kicker">The ceremony · 9:00–10:30 AM</p>
+          <p className="section-kicker">The ceremony · 8:30 AM–1:00 PM</p>
           <h2 id="morning-heading">Muhurtham</h2>
-          <p className="event-lede">A Tamil Hindu wedding at the heart of our day.</p>
+          <p className="event-lede">Muhurtham from 9:00–10:30 AM · A Tamil Hindu wedding at the heart of our day.</p>
           <div className="event-facts"><div><span>Where</span><strong>Sri Venkateswara Temple</strong><small>1 Balaji Temple Drive<br />Bridgewater, NJ 08807</small></div><div><span>Dress</span><strong>South Indian traditional</strong><small>Veshti for men · Pattu Saree for women</small></div></div>
           <div className="event-actions"><a href={MAPS.morning} target="_blank" rel="noopener noreferrer">Get directions <span aria-hidden="true">↗</span></a><a href="/muhurtham.ics" download>Add to calendar <span aria-hidden="true">↓</span></a></div>
         </div>
       </section>
 
-      <div className="scratch-section"><p className="section-kicker">When the sun sets</p><ScratchReveal /></div>
-
-      <section className="event-section evening-event" aria-labelledby="evening-heading">
-        <div className="event-content">
-          <p className="section-kicker">The celebration · 7:00 PM–midnight</p>
-          <h2 id="evening-heading">An evening<br /><em>together.</em></h2>
-          <p className="event-lede">Dinner, dancing, a toast or two, and a room full of our favorite people.</p>
-          <div className="event-facts"><div><span>Where</span><strong>The Meadow Wood</strong><small>461 NJ-10<br />Randolph, NJ 07869</small></div><div><span>Dress</span><strong>Black Tie / Formal Attire</strong><small>Come ready to celebrate.</small></div></div>
-          <div className="event-actions"><a href={MAPS.evening} target="_blank" rel="noopener noreferrer">Get directions <span aria-hidden="true">↗</span></a><a href="/reception.ics" download>Add to calendar <span aria-hidden="true">↓</span></a></div>
+      <section id="evening" className="evening-event" aria-labelledby="evening-heading">
+        <div className="evening-arch" aria-hidden="true" />
+        <div className="evening-content">
+          <p className="section-kicker">The evening celebration</p>
+          <h2 id="evening-heading">We tied the knot earlier—<br /><em>now it’s time to loosen the bow ties.</em></h2>
+          <div className="evening-time">7:00 PM – 12:00 AM</div>
+          <div className="evening-minimal-details">
+            <div><span>Place</span><strong>The Meadow Wood</strong><small>461 NJ-10 · Randolph, NJ 07869</small></div>
+            <div><span>Attire</span><strong>Black Tie</strong></div>
+          </div>
+          <div className="event-actions"><a href={MAPS.evening} target="_blank" rel="noopener noreferrer">Place directions <span aria-hidden="true">↗</span></a><a href="/reception.ics" download>Add to calendar <span aria-hidden="true">↓</span></a></div>
         </div>
-        <div className="event-visual"><img src="/art/04-evening-reception.webp" alt="Illustration of a candlelit ballroom, chandeliers, champagne and wedding cake" loading="lazy" /><span className="visual-index">02 / Evening</span></div>
       </section>
 
       <section id="details" className="details-section" aria-labelledby="details-heading">
         <div className="details-heading"><p className="section-kicker">At a glance</p><h2 id="details-heading">The day,<br /><em>beautifully simple.</em></h2></div>
-        <div className="timeline"><div className="timeline-line" /><article><span className="timeline-time">09:00 AM</span><div><h3>Muhurtham</h3><p>Sri Venkateswara Temple · Bridgewater</p><small>Veshti / Pattu Saree</small></div></article><article><span className="timeline-time">07:00 PM</span><div><h3>Evening celebration</h3><p>The Meadow Wood · Randolph</p><small>Black Tie / Formal Attire</small></div></article><article><span className="timeline-time">12:00 AM</span><div><h3>Until midnight</h3><p>One more song before we call it a night.</p></div></article></div>
+        <div className="timeline"><div className="timeline-line" /><article><span className="timeline-time">08:30 AM</span><div><h3>Ceremony begins</h3><p>Sri Venkateswara Temple · Bridgewater</p><small>Veshti / Pattu Saree</small></div></article><article><span className="timeline-time">09:00 AM</span><div><h3>Muhurtham</h3><p>9:00–10:30 AM</p></div></article><article><span className="timeline-time">07:00 PM</span><div><h3>Evening celebration</h3><p>The Meadow Wood · Randolph</p><small>Black Tie</small></div></article><article><span className="timeline-time">12:00 AM</span><div><h3>Until midnight</h3><p>One more song before we call it a night.</p></div></article></div>
       </section>
 
       {/* Mount the user's RSVP engine here and add a #rsvp navigation link when ready. */}
 
       <section id="closing" className="closing-section" aria-labelledby="closing-heading"><img className="closing-ornament" src="/art/06-ornamental-overlay.webp" alt="" loading="lazy" /><div className="closing-copy"><p className="section-kicker">A note from us</p><h2 id="closing-heading">All that’s<br /><em>missing is you.</em></h2><p>Because when we look back on this day years from now, we won’t just remember the ceremony or the celebration. We’ll remember the people who were there.</p><p>We’ve got the venue, the outfits, and each other. All that’s missing is you.</p><div className="closing-signature">Shruthi &amp; Deepak <span lang="ta">ஒலி &amp; ஒளி</span></div></div><img className="closing-couple" src="/art/02-couple-cutout.webp" alt="Illustration of Shruthi and Deepak in traditional wedding attire" loading="lazy" /></section>
 
-      <footer className="footer"><div className="footer-monogram" lang="ta">ஒலி × ஒளி</div><p>26 February 2027 · New Jersey</p><a href="#main">Back to top ↑</a></footer>
+      <footer className="footer"><div className="footer-monogram" lang="ta">ஒலி × ஒளி</div><p>27 February 2027 · New Jersey</p><a href="#main">Back to top ↑</a></footer>
       </div>
     </main>
   );

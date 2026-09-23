@@ -1,6 +1,6 @@
 # Shruthi & Deepak invitation
 
-A mobile-first illustrated invitation for 26 February 2027. The live build includes the animated opening, Colorado story, Tamil copy, morning and evening event scenes, scratch reveal, maps, dress guidance, timeline and calendar files.
+A mobile-first illustrated invitation for 27 February 2027. The live build includes the animated opening, Colorado story, Tamil copy, morning ceremony and editorial evening sections, maps, dress guidance, timeline and calendar files.
 
 ## Run locally
 
@@ -17,7 +17,7 @@ npm run dev
 - PNG masters: `../assets/concept/*.png`
 - Calendar downloads: `public/muhurtham.ics`, `public/reception.ics`
 
-The opening is a composited book spread: live typography over a paper page, with separate movable couple, temple, Colorado keepsake, and jasmine-and-rose garland layers. PNG masters 07–12 preserve the scrapbook studies and individual cultural elements. The morning temple photograph is framed by a floral garland and brass kuthuvilakku lamps; a rice-flour kolam carries into the section transition and ceremony stationery. These are separate layers so their placement can be tuned without regenerating the page. The evening reception deliberately keeps its distinct black-tie look. GSAP directs the click-triggered 3D page turn, light bloom, layer separation, scroll-linked parallax, and subtle pointer response; the scratch section uses a canvas overlay with a button fallback. Reduced-motion visitors enter directly without the page-turn sequence.
+The opening is a composited book spread: live typography over a paper page, with separate movable couple, temple, and Colorado keepsake layers. PNG masters 07–12 preserve the scrapbook studies and individual cultural elements. The morning temple photograph is framed by brass kuthuvilakku lamps; a rice-flour kolam carries into the section transition and ceremony stationery. The evening reception uses a tall burgundy arch and minimal black-tie typography instead of a hall photograph. GSAP directs the click-triggered wine-curtain transition, light bloom, scroll-linked parallax, and subtle pointer response. Reduced-motion visitors enter directly without the transition.
 
 ## RSVP engine integration
 

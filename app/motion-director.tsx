@@ -43,11 +43,6 @@ export default function MotionDirector({ opened, openingRequested, onOpenComplet
       { opacity: 0.15, scale: 1, rotate: 0, duration: 1.1, ease: "power2.out", scrollTrigger: { trigger: ".events-intro", start: "top 68%", toggleActions: "play none none reverse" } },
     );
     gsap.fromTo(
-      ".ceremony-garland",
-      { autoAlpha: 0, y: -18 },
-      { autoAlpha: 1, y: 0, duration: 1.2, ease: "power2.out", scrollTrigger: { trigger: ".morning-event", start: "top 75%", toggleActions: "play none none reverse" } },
-    );
-    gsap.fromTo(
       ".ceremony-lamp",
       { autoAlpha: 0, y: 28 },
       { autoAlpha: 1, y: 0, duration: 1.15, stagger: 0.16, ease: "power2.out", scrollTrigger: { trigger: ".morning-event", start: "top 70%", toggleActions: "play none none reverse" } },
@@ -65,6 +60,11 @@ export default function MotionDirector({ opened, openingRequested, onOpenComplet
       { opacity: 0.35, x: 25 },
       { opacity: 1, x: 0, stagger: 0.14, duration: 0.6, ease: "power2.out", scrollTrigger: { trigger: ".timeline", start: "top 73%", toggleActions: "play none none reverse" } },
     );
+    gsap.fromTo(
+      ".evening-content > *",
+      { autoAlpha: 0, y: 28 },
+      { autoAlpha: 1, y: 0, stagger: 0.12, duration: 0.8, ease: "power2.out", scrollTrigger: { trigger: ".evening-event", start: "top 68%", toggleActions: "play none none reverse" } },
+    );
 
     const book = document.querySelector<HTMLElement>(".opening-book-right");
     const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
@@ -77,7 +77,6 @@ export default function MotionDirector({ opened, openingRequested, onOpenComplet
       const templeY = gsap.quickTo(".cover-temple-card", "y", { duration: 0.8, ease: "power2.out" });
       const coloradoX = gsap.quickTo(".cover-colorado-card", "x", { duration: 0.7, ease: "power2.out" });
       const coloradoY = gsap.quickTo(".cover-colorado-card", "y", { duration: 0.7, ease: "power2.out" });
-      const garlandX = gsap.quickTo(".opening-garland", "x", { duration: 1, ease: "power2.out" });
       onMove = (event: PointerEvent) => {
         const bounds = book.getBoundingClientRect();
         const x = (event.clientX - bounds.left) / bounds.width - 0.5;
@@ -85,9 +84,8 @@ export default function MotionDirector({ opened, openingRequested, onOpenComplet
         coupleX(x * 25); coupleY(y * 18);
         templeX(x * -13); templeY(y * -11);
         coloradoX(x * 32); coloradoY(y * 22);
-        garlandX(x * -7);
       };
-      onLeave = () => { coupleX(0); coupleY(0); templeX(0); templeY(0); coloradoX(0); coloradoY(0); garlandX(0); };
+      onLeave = () => { coupleX(0); coupleY(0); templeX(0); templeY(0); coloradoX(0); coloradoY(0); };
       book.addEventListener("pointermove", onMove);
       book.addEventListener("pointerleave", onLeave);
     }
@@ -111,34 +109,23 @@ export default function MotionDirector({ opened, openingRequested, onOpenComplet
       return;
     }
 
-    const mobile = window.matchMedia("(max-width: 650px)").matches;
     gsap.set(".opening", { pointerEvents: "none" });
-    gsap.set(".opening-book", { transformOrigin: mobile ? "left center" : "50% 50%" });
-    gsap.set(".opening-book-left", { backfaceVisibility: "hidden" });
+    gsap.set(".opening-book", { transformOrigin: "50% 50%" });
 
     const pageTurn = gsap.timeline({ onComplete: onOpenComplete });
     pageTurn
       .to(".opening-button", { scale: 0.96, duration: 0.18, ease: "power2.in" }, 0)
-      .to(".opening-light", { opacity: 0.88, scale: 1.16, duration: 1.15, ease: "power2.out" }, 0.05)
-      .to(".opening-garland", { y: -24, rotation: -2, duration: 0.85, ease: "power2.out" }, 0.15)
-      .to(".cover-couple-cutout", { y: -32, scale: 1.045, duration: 0.85, ease: "power2.out" }, 0.16)
-      .to(".cover-temple-card", { x: 24, y: -13, rotation: 9, duration: 0.88, ease: "power2.out" }, 0.19)
-      .to(".cover-colorado-card", { x: 38, y: 14, rotation: 16, duration: 0.78, ease: "power2.out" }, 0.22)
-      .to(".opening-book", { scale: 1.045, rotationZ: -0.6, duration: 0.52, ease: "power2.out" }, 0.2);
-
-    if (mobile) {
-      pageTurn.to(".opening-mobile-copy", { autoAlpha: 0, y: -18, duration: 0.48, ease: "power2.in" }, 0.42);
-    } else {
-      pageTurn.to(".opening-book-left", { rotationY: -155, duration: 1.6, ease: "power3.inOut" }, 0.48);
-    }
-
-    pageTurn
-      .to(".opening-book", { rotationY: mobile ? -72 : -24, xPercent: mobile ? 0 : -10, scale: mobile ? 0.88 : 0.89, rotationZ: mobile ? -3 : -1.4, duration: 1.55, ease: "power3.inOut" }, 0.62)
-      .to(".opening-backdrop", { autoAlpha: 0, duration: 1.25, ease: "power2.inOut" }, 0.78)
-      .to(".opening-light", { opacity: 0.06, duration: 0.9, ease: "power2.inOut" }, 1.14)
-      .to(".opening-flash", { autoAlpha: 0.44, duration: 0.52, ease: "power2.out" }, 0.97)
-      .to(".opening-flash", { autoAlpha: 0, duration: 0.65, ease: "power2.inOut" }, 1.5)
-      .to(".opening", { autoAlpha: 0, duration: 0.86, ease: "power2.inOut" }, 1.6);
+      .to(".opening-light", { opacity: 0.74, scale: 1.12, duration: 0.8, ease: "power2.out" }, 0.05)
+      .to(".opening-book", { scale: 1.07, y: -12, duration: 0.7, ease: "power2.inOut" }, 0.12)
+      .to(".opening-book", { autoAlpha: 0, scale: 1.16, filter: "blur(5px)", duration: 0.58, ease: "power2.in" }, 0.62)
+      .to(".opening-curtain-left", { xPercent: 100, duration: 0.78, ease: "power3.inOut" }, 0.52)
+      .to(".opening-curtain-right", { xPercent: -100, duration: 0.78, ease: "power3.inOut" }, 0.52)
+      .to(".opening-backdrop", { autoAlpha: 0, duration: 0.15 }, 1.25)
+      .to(".opening-flash", { autoAlpha: 0.34, duration: 0.25, ease: "power2.out" }, 1.2)
+      .to(".opening-curtain-left", { xPercent: -1, duration: 0.92, ease: "power3.inOut" }, 1.35)
+      .to(".opening-curtain-right", { xPercent: 1, duration: 0.92, ease: "power3.inOut" }, 1.35)
+      .to(".opening-flash", { autoAlpha: 0, duration: 0.5, ease: "power2.inOut" }, 1.42)
+      .to(".opening", { autoAlpha: 0, duration: 0.2 }, 2.2);
   }, { dependencies: [openingRequested, opened], revertOnUpdate: true });
 
   useGSAP(() => {

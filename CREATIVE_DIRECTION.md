@@ -9,7 +9,7 @@ The central idea is **ஒலி × ஒளி — sound meets light**. It is pers
 Working title: **When sound found light**  
 Tamil signature: **ஒலி & ஒளி**  
 Names: **Shruthi & Deepak**  
-Date: **26 February 2027**
+Date: **27 February 2027**
 
 ## Art direction
 
@@ -37,11 +37,11 @@ Date: **26 February 2027**
 5. **Morning / Muhurtham**  
    The palette opens into sunrise ivory. The Bridgewater temple is the anchor. Details: 9:00–10:30 AM, Tamil Hindu wedding, Veshti / Pattu Saree, address, map, and an “Add morning ceremony” calendar action.
 
-6. **Scratch transition**  
-   A small foil-look panel invites the guest to “Reveal the evening.” Scratching uncovers burgundy and candlelight underneath. The interaction is optional; a visible reveal button protects accessibility and impatient guests.
+6. **Evening transition**  
+   The page moves directly into a tall burgundy arch with restrained black-tie typography and no hall photograph.
 
 7. **Evening / celebration**  
-   The scene shifts to The Meadow Wood at 7:00 PM–12:00 AM. The ballroom is sophisticated, not nightclub-like: chandeliers, champagne coupe tower, sculptural cake, black-tie copy, map, and calendar action.
+   The scene shifts to The Meadow Wood at 7:00 PM–12:00 AM. The composition stays minimal: black-tie copy, place, attire, map, and calendar action.
 
 8. **Timeline**  
    A single flowing line moves from sunrise to midnight. Only confirmed timings appear. Any missing milestones remain hidden rather than invented.
@@ -98,7 +98,7 @@ Before final production, the temple and ballroom artwork should be regenerated a
 
 ### Phase 3 — functional systems
 
-- Maps, calendar files, music control, scratch reveal, RSVP storage, WhatsApp notifications, and private counts dashboard.
+- Maps, calendar files, music control, RSVP storage, WhatsApp notifications, and private counts dashboard.
 - Inline validation, retry states, duplicate-response handling, and a clear confirmation receipt.
 
 ### Phase 4 — quality gate
