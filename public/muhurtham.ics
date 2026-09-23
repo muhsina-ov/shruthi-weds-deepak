@@ -1,0 +1,15 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//InviteStory//Shruthi and Deepak//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:shruthi-deepak-muhurtham-20270226@invitestory
+DTSTAMP:20260922T000000Z
+DTSTART;TZID=America/New_York:20270226T090000
+DTEND;TZID=America/New_York:20270226T103000
+SUMMARY:Shruthi & Deepak — Muhurtham
+LOCATION:Sri Venkateswara Temple\, 1 Balaji Temple Drive\, Bridgewater\, NJ 08807
+DESCRIPTION:Tamil Hindu wedding ceremony. Dress: Veshti or Pattu Saree.
+END:VEVENT
+END:VCALENDAR
