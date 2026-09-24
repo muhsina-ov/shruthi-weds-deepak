@@ -118,31 +118,28 @@ export default function Home() {
       <div className="opening" aria-hidden={opened}>
         <div className="opening-backdrop" aria-hidden="true" />
         <div className="opening-light" aria-hidden="true" />
-        <div className="opening-curtain opening-curtain-left" aria-hidden="true" />
-        <div className="opening-curtain opening-curtain-right" aria-hidden="true" />
-        <div className="opening-book" role="group" aria-label="Shruthi and Deepak's wedding invitation cover">
-          <div className="opening-book-left">
-            <div className="book-topline"><span>THE WEDDING ALBUM</span><span>VOL. 01 / 2027</span></div>
-            <div className="book-left-center">
-              <span className="book-overline">You are invited to celebrate</span>
-              <p className="book-title">Shruthi <i>&amp;</i><br />Deepak</p>
-              <div className="book-gold-rule" />
-              <p className="book-date">Saturday · 27 February 2027</p>
-              <p className="book-tamil" lang="ta">ஒளியும் ஒலியும் சேரும் தருணம்,<br />உங்கள் வருகையால் சிறக்கும் இன்பத் தருணம்.</p>
-              <button type="button" className="opening-button" onClick={() => openInvitation(true)} disabled={openingRequested} tabIndex={opened ? -1 : 0}>Turn the page <span aria-hidden="true">→</span></button>
-              {SOUNDTRACK_URL && <button type="button" className="silent-button" onClick={() => openInvitation(false)} disabled={openingRequested} tabIndex={opened ? -1 : 0}>Enter without music</button>}
-            </div>
-            <span className="book-bottomline">A story of sound, light &amp; everyone we love</span>
-          </div>
+        <div className="opening-book opening-arch-card" role="group" aria-label="Shruthi and Deepak's wedding invitation cover">
           <div className="opening-book-right">
-            <img className="opening-cover-paper" src="/art/09-empty-scrapbook-page.webp" alt="" fetchPriority="high" />
-            <figure className="cover-temple-card"><img src="/art/03-muhurtham-temple.webp" alt="Illustration of the wedding temple in Bridgewater" /><figcaption>Bridgewater, NJ</figcaption></figure>
+            <img className="opening-cover-paper" src="/art/arch-backdrop.webp" alt="Wedding invitation arched burgundy backdrop" fetchPriority="high" />
+            <div className="card-curl-shadow" aria-hidden="true" />
+            <img className="cover-garland" src="/art/10-jasmine-rose-garland.webp" alt="Traditional jasmine and rose garland" aria-hidden="true" />
+            <img className="cover-kolam" src="/art/12-rice-flour-kolam.webp" alt="" aria-hidden="true" />
+            <img className="cover-lamp cover-lamp-left" src="/art/11-brass-kuthuvilakku.webp" alt="" aria-hidden="true" />
+            <img className="cover-lamp cover-lamp-right" src="/art/11-brass-kuthuvilakku.webp" alt="" aria-hidden="true" />
+            <figure className="cover-temple-card">
+              <img src="/art/03-muhurtham-temple.webp" alt="Illustration of the wedding temple in Bridgewater" />
+              <figcaption>Bridgewater, NJ</figcaption>
+            </figure>
+            <figure className="cover-colorado-card">
+              <img src="/art/05-colorado-story.webp" alt="Their first spark in Colorado" />
+              <figcaption>where it began</figcaption>
+            </figure>
             <img className="cover-couple-cutout" src="/art/02-couple-cutout.webp" alt="Illustrated portrait of Shruthi and Deepak" />
-            <figure className="cover-colorado-card"><img src="/art/05-colorado-story.webp" alt="Their first spark in Colorado" /><figcaption>where it began</figcaption></figure>
-            <div className="opening-mobile-copy">
-              <span className="opening-mobile-overline">A wedding invitation</span>
-              <p className="opening-mobile-title">Shruthi <i>&amp;</i><br />Deepak</p>
-              <p className="opening-mobile-date">27 February 2027 · New Jersey</p>
+            <div className="opening-mobile-copy cover-copy">
+              <span className="opening-mobile-overline cover-overline">A wedding invitation</span>
+              <p className="opening-mobile-title cover-title">Shruthi <i>&amp;</i><br />Deepak</p>
+              <p className="opening-mobile-date cover-date">Saturday · 27 February 2027 · New Jersey</p>
+              <p className="cover-tamil" lang="ta">ஒளியும் ஒலியும் சேரும் தருணம்,<br />உங்கள் வருகையால் சிறக்கும் இன்பத் தருணம்.</p>
               <button type="button" className="opening-button" onClick={() => openInvitation(true)} disabled={openingRequested} tabIndex={opened ? -1 : 0}>Turn the page <span aria-hidden="true">→</span></button>
               {SOUNDTRACK_URL && <button type="button" className="silent-button" onClick={() => openInvitation(false)} disabled={openingRequested} tabIndex={opened ? -1 : 0}>Enter without music</button>}
             </div>
