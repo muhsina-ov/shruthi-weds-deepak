@@ -124,3 +124,493 @@
   .evening-content .event-actions{flex-direction:column}
 }
 @media(prefers-reduced-motion:reduce){.opening-flash,.opening-light{display:none}}
+
+/* ============================================================
+   RSVP Section Styling — Matches Cotton Paper & Album Aesthetic
+   ============================================================ */
+.rsvp-section {
+  position: relative;
+  background-color: #f5ede1;
+  background-image: 
+    radial-gradient(#d6c0a550 1px, transparent 1px),
+    linear-gradient(180deg, #f7f1e7 0%, #f4ece0 50%, #eee4d5 100%);
+  background-size: 10px 10px, 100% 100%;
+  border-top: 1.2rem solid #e4d5be;
+  border-bottom: 1.2rem solid #e4d5be;
+  padding: clamp(4.5rem, 8vw, 8rem) clamp(1.2rem, 4vw, 3rem);
+}
+
+.rsvp-container {
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.rsvp-card {
+  position: relative;
+  background: #fffdf9;
+  border: 1px solid #d5be9f;
+  border-radius: 4px;
+  box-shadow: 0 12px 36px #4d2b1a1c, 0 1px 3px #0000000d;
+  padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1.5rem, 5vw, 3.8rem);
+}
+
+.rsvp-card:before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid #e7d6c180;
+  pointer-events: none;
+  border-radius: 2px;
+}
+
+.rsvp-ornament-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-bottom: 1.4rem;
+  color: #b58952;
+}
+
+.rsvp-tamil-tag {
+  font-family: 'Noto Serif Tamil', serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+}
+
+.rsvp-flourish {
+  font-size: 1.1rem;
+}
+
+.rsvp-header {
+  text-align: center;
+  margin-bottom: 2.8rem;
+}
+
+.rsvp-header h2 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(2.8rem, 6.2vw, 4.6rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  margin: 0.8rem 0 1.2rem;
+  color: #4b1720;
+}
+
+.rsvp-header h2 em {
+  font-weight: 400;
+  color: #b58952;
+  font-style: italic;
+}
+
+.rsvp-intro {
+  max-width: 38rem;
+  margin: 0 auto;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #6d5156;
+}
+
+.rsvp-phone-highlight {
+  color: #4b1720;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.rsvp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.rsvp-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.rsvp-group-label,
+.rsvp-field-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #8c633a;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.required-mark {
+  color: #b53846;
+}
+
+.optional-tag {
+  font-weight: 400;
+  font-size: 0.68rem;
+  color: #a48777;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+/* Choices Grid */
+.rsvp-options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.rsvp-choice-card {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  padding: 1.25rem 1.3rem;
+  background: #faf4ea;
+  border: 1px solid #dcc9b4;
+  border-radius: 3px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.22s cubic-bezier(0.2, 0, 0, 1);
+  color: #4e1c25;
+}
+
+.rsvp-choice-card:hover {
+  background: #f5ece0;
+  border-color: #cbab8e;
+  transform: translateY(-1px);
+}
+
+.rsvp-choice-card.is-selected {
+  background: #681d2b;
+  border-color: #8a2438;
+  color: #fff8ef;
+  box-shadow: 0 6px 20px #4d101e2b;
+}
+
+.rsvp-choice-card.is-selected .choice-title {
+  color: #fffaf0;
+}
+
+.rsvp-choice-card.is-selected .choice-description {
+  color: #eed6be;
+}
+
+.choice-indicator {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1.5px solid #bba38a;
+  display: grid;
+  place-items: center;
+  margin-top: 0.15rem;
+  background: #fff;
+  transition: all 0.2s ease;
+}
+
+.is-selected .choice-indicator {
+  border-color: #deb679;
+  background: #deb679;
+  color: #49121d;
+}
+
+.choice-check {
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.choice-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.choice-badge {
+  align-self: flex-start;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  border-radius: 2px;
+  background: #e7cda3;
+  color: #481a22;
+  margin-bottom: 0.1rem;
+}
+
+.is-selected .choice-badge {
+  background: #deb679;
+  color: #401018;
+}
+
+.choice-title {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.15;
+  color: #4b1720;
+}
+
+.choice-description {
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: #7a5e62;
+}
+
+.choice-decline {
+  grid-column: span 2;
+  padding: 0.95rem 1.3rem;
+  background: #fbf7f1;
+}
+
+.choice-decline.is-selected {
+  background: #46282e;
+  border-color: #633b43;
+}
+
+/* Fields */
+.rsvp-fields-row {
+  display: flex;
+  gap: 1.2rem;
+}
+
+.rsvp-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.rsvp-field-grow {
+  flex: 1;
+}
+
+.rsvp-field-narrow {
+  width: 170px;
+  flex-shrink: 0;
+}
+
+.rsvp-input,
+.rsvp-select,
+.rsvp-textarea {
+  width: 100%;
+  background: #fffdf9;
+  border: 1px solid #ceb9a1;
+  color: #4b1720;
+  padding: 0.9rem 1.05rem;
+  border-radius: 2px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.rsvp-input::placeholder,
+.rsvp-textarea::placeholder {
+  color: #a48a80;
+  opacity: 0.7;
+}
+
+.rsvp-input:focus,
+.rsvp-select:focus,
+.rsvp-textarea:focus {
+  outline: none;
+  border-color: #9d703e;
+  box-shadow: 0 0 0 3px #d5b77a38;
+}
+
+.input-error {
+  border-color: #c93b4a !important;
+}
+
+.field-error-msg {
+  font-size: 0.76rem;
+  color: #b52536;
+  margin: 0.2rem 0 0;
+}
+
+.rsvp-select-wrapper {
+  position: relative;
+}
+
+.rsvp-select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238c633a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.2rem;
+}
+
+.rsvp-textarea {
+  resize: vertical;
+  min-height: 70px;
+  line-height: 1.5;
+}
+
+/* Message Preview Box */
+.rsvp-preview-box {
+  background: #f7f1e7;
+  border: 1px dashed #cbb091;
+  border-radius: 3px;
+  padding: 1.25rem 1.4rem;
+}
+
+.rsvp-preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid #dfcbb5;
+  padding-bottom: 0.5rem;
+}
+
+.preview-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #93683f;
+}
+
+.preview-recipient {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #4b1720;
+}
+
+.preview-content {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: 'DM Sans', Arial, sans-serif;
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: #553b40;
+}
+
+/* Actions */
+.rsvp-actions-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.rsvp-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  border: none;
+  cursor: pointer;
+  padding: 1.15rem 1.6rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  border-radius: 2px;
+  transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+.rsvp-whatsapp-btn {
+  background: linear-gradient(135deg, #1d6e3c 0%, #15552d 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 16px #1b5e3433;
+}
+
+.rsvp-whatsapp-btn:hover {
+  background: linear-gradient(135deg, #227c44 0%, #186033 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px #1b5e3444;
+}
+
+.rsvp-whatsapp-btn:active {
+  transform: translateY(1px);
+}
+
+.whatsapp-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+}
+
+.btn-arrow {
+  margin-left: 0.4rem;
+  transition: transform 0.2s ease;
+}
+
+.rsvp-whatsapp-btn:hover .btn-arrow {
+  transform: translateX(3px);
+}
+
+.rsvp-secondary-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+}
+
+.rsvp-alt-btn {
+  background: #fbf5ec;
+  border: 1px solid #ceb89f;
+  color: #541d27;
+  padding: 0.85rem 1rem;
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rsvp-alt-btn:hover {
+  background: #f0e4d2;
+  border-color: #bfa588;
+  transform: translateY(-1px);
+}
+
+.rsvp-alt-btn:active {
+  transform: translateY(1px);
+}
+
+.rsvp-privacy-note {
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: #82666a;
+  text-align: center;
+  margin: 0.5rem 0 0;
+}
+
+.rsvp-privacy-note strong {
+  color: #4b1720;
+}
+
+@media (max-width: 700px) {
+  .rsvp-section {
+    padding: 3.5rem 1rem;
+    border-width: 0.8rem;
+  }
+  .rsvp-card {
+    padding: 2.2rem 1.2rem;
+  }
+  .rsvp-header h2 {
+    font-size: 2.7rem;
+  }
+  .rsvp-options-grid {
+    grid-template-columns: 1fr;
+  }
+  .choice-decline {
+    grid-column: span 1;
+  }
+  .rsvp-fields-row {
+    flex-direction: column;
+  }
+  .rsvp-field-narrow {
+    width: 100%;
+  }
+  .rsvp-secondary-actions {
+    grid-template-columns: 1fr;
+  }
+}

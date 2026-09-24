@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 
 const MotionDirector = dynamic(() => import("./motion-director"), { ssr: false });
+import { RsvpSection } from "@/components/rsvp-section";
 
 const MAPS = {
   morning: "https://maps.app.goo.gl/2wmqyQn2TaDFKkFo6?g_st=ic",
@@ -154,7 +155,7 @@ export default function Home() {
           <a href="#story">Our story</a>
           <a href="#events">The day</a>
           <a href="#details">Details</a>
-          <a className="header-rsvp" href="#muhurtham">Muhurtham <span aria-hidden="true">↓</span></a>
+          <a className="header-rsvp" href="#rsvp">RSVP <span aria-hidden="true">↓</span></a>
         </nav>
       </header>
       {SOUNDTRACK_URL && opened && <button className="music-toggle" type="button" onClick={toggleMusic} aria-label={playing ? "Pause music" : "Play music"}>{playing ? "♪ Sound on" : "♪ Sound off"}</button>}
@@ -226,7 +227,7 @@ export default function Home() {
         <div className="timeline"><div className="timeline-line" /><article><span className="timeline-time">08:30 AM</span><div><h3>Ceremony begins</h3><p>Sri Venkateswara Temple · Bridgewater</p><small>Veshti / Pattu Saree</small></div></article><article><span className="timeline-time">09:00 AM</span><div><h3>Muhurtham</h3><p>9:00–10:30 AM</p></div></article><article><span className="timeline-time">07:00 PM</span><div><h3>Evening celebration</h3><p>The Meadow Wood · Randolph</p><small>Black Tie</small></div></article><article><span className="timeline-time">12:00 AM</span><div><h3>Until midnight</h3><p>One more song before we call it a night.</p></div></article></div>
       </section>
 
-      {/* Mount the user's RSVP engine here and add a #rsvp navigation link when ready. */}
+      <RsvpSection />
 
       <section id="closing" className="closing-section" aria-labelledby="closing-heading"><img className="closing-ornament" src="/art/06-ornamental-overlay.webp" alt="" loading="lazy" /><div className="closing-copy"><p className="section-kicker">A note from us</p><h2 id="closing-heading">All that’s<br /><em>missing is you.</em></h2><p>Because when we look back on this day years from now, we won’t just remember the ceremony or the celebration. We’ll remember the people who were there.</p><p>We’ve got the venue, the outfits, and each other. All that’s missing is you.</p><div className="closing-signature">Shruthi &amp; Deepak <span lang="ta">ஒலி &amp; ஒளி</span></div></div><img className="closing-couple" src="/art/02-couple-cutout.webp" alt="Illustration of Shruthi and Deepak in traditional wedding attire" loading="lazy" /></section>
 
