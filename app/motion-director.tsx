@@ -28,13 +28,12 @@ export default function MotionDirector({
       autoAlpha: 0,
     });
     gsap.set(".cover-kolam", { scale: 0.65, autoAlpha: 0, rotate: -8 });
-    gsap.set(".cover-garland", { y: -38, autoAlpha: 0 });
     gsap.set([".cover-lamp-left", ".cover-lamp-right"], { y: 28, autoAlpha: 0, scale: 0.9 });
     gsap.set(".cover-couple-cutout", { y: 35, autoAlpha: 0, scale: 0.95 });
     gsap.set(".cover-temple-card", { x: 35, y: 25, rotate: 12, autoAlpha: 0 });
     gsap.set(".cover-colorado-card", { x: 28, y: 30, rotate: 16, autoAlpha: 0 });
     gsap.set(".opening-art-note", { y: 18, autoAlpha: 0, rotate: -7 });
-    gsap.set([".cover-overline", ".cover-title", ".cover-date", ".cover-tamil"], { y: 16, autoAlpha: 0 });
+    gsap.set([".cover-overline", ".cover-title", ".cover-date"], { y: 16, autoAlpha: 0 });
     gsap.set([".cover-copy .opening-button", ".cover-copy .silent-button"], { y: 18, autoAlpha: 0 });
 
     const intro = gsap.timeline({ delay: 0.1 });
@@ -60,18 +59,7 @@ export default function MotionDirector({
         },
         "-=0.75"
       )
-      // 3. Jasmine & rose garland drapes down along the arch curve
-      .to(
-        ".cover-garland",
-        {
-          y: 0,
-          autoAlpha: 1,
-          duration: 0.9,
-          ease: "power2.out",
-        },
-        "-=0.7"
-      )
-      // 4. Brass kuthuvilakku lamps ignite with warm light
+      // 3. Brass kuthuvilakku lamps ignite with warm light
       .to(
         [".cover-lamp-left", ".cover-lamp-right"],
         {
@@ -84,7 +72,7 @@ export default function MotionDirector({
         },
         "-=0.6"
       )
-      // 5. Illustrated couple cutout settles into the center foreground
+      // 4. Illustrated couple cutout settles into the center foreground
       .to(
         ".cover-couple-cutout",
         {
@@ -96,7 +84,7 @@ export default function MotionDirector({
         },
         "-=0.55"
       )
-      // 6. Temple & Colorado keepsake cards slide into position
+      // 5. Temple & Colorado keepsake cards slide into position
       .to(
         ".cover-temple-card",
         {
@@ -132,9 +120,9 @@ export default function MotionDirector({
         },
         "-=0.4"
       )
-      // 7. Gold & ivory typography cascades in
+      // 6. Gold & ivory typography cascades in
       .to(
-        [".cover-overline", ".cover-title", ".cover-date", ".cover-tamil"],
+        [".cover-overline", ".cover-title", ".cover-date"],
         {
           y: 0,
           autoAlpha: 1,

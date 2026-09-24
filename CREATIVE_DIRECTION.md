@@ -9,7 +9,7 @@ The central idea is **ஒலி × ஒளி — sound meets light**. It is pers
 Working title: **When sound found light**  
 Tamil signature: **ஒலி & ஒளி**  
 Names: **Shruthi & Deepak**  
-Date: **27 February 2027**
+Date: **26 February 2027**
 
 ## Art direction
 

@@ -1,6 +1,6 @@
 # Shruthi & Deepak invitation
 
-A mobile-first illustrated invitation for 27 February 2027. The live build includes the animated opening, Colorado story, Tamil copy, morning ceremony and editorial evening sections, maps, dress guidance, timeline and calendar files.
+A mobile-first illustrated invitation for 26 February 2027. The live build includes the animated opening, Colorado story, Tamil copy, morning ceremony and editorial evening sections, maps, dress guidance, timeline and calendar files.
 
 ## Run locally
 

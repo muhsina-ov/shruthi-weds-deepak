@@ -39,7 +39,7 @@
 .cover-overline{font-size:clamp(.55rem,1.4vw,.66rem);font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:#deb87c;text-shadow:0 1px 4px #26060e88}
 .cover-title{font-family:'DM Serif Display',Georgia,serif;font-size:clamp(2.4rem,8.5vw,4.1rem);line-height:.86;letter-spacing:-.05em;margin:.45rem 0 .35rem;color:#fffaf0;white-space:nowrap;text-shadow:0 2px 14px #26060ebb}
 .cover-title i{font-style:italic;color:#e8c385;font-weight:400;font-size:.76em;padding:0 .12em}
-.cover-date{font-family:'DM Serif Display',Georgia,serif;font-size:clamp(.76rem,2.4vw,1.1rem);color:#edd3ab;margin:.15rem 0 .45rem;letter-spacing:.02em;text-shadow:0 1px 4px #26060e88}
+.cover-date{font-family:'DM Serif Display',Georgia,serif;font-size:clamp(.76rem,2.4vw,1.1rem);color:#edd3ab;margin:.15rem 0 .95rem;letter-spacing:.02em;text-shadow:0 1px 4px #26060e88}
 .cover-tamil{font-family:'Noto Serif Tamil',serif;font-size:clamp(.58rem,1.6vw,.74rem);line-height:1.5;color:#f6e6d2;opacity:.95;margin:0 auto .75rem;max-width:24rem;text-shadow:0 1px 4px #26060e88}
 .cover-copy .opening-button{border:1px solid #dcb274;background:linear-gradient(135deg,#671626,#450c18);color:#fff6e8;padding:.75rem 1.35rem;min-width:13.5rem;display:inline-flex;justify-content:space-between;align-items:center;text-transform:uppercase;letter-spacing:.14em;font-size:.66rem;font-weight:700;cursor:pointer;box-shadow:0 4px 15px #18030788,inset 0 1px 0 #ffffff25;border-radius:2px;transition:transform .2s,background .2s,box-shadow .2s}
 .cover-copy .opening-button:hover{background:linear-gradient(135deg,#7e1a2f,#540e1d);transform:translateY(-2px);box-shadow:0 6px 20px #180307aa}
@@ -61,7 +61,7 @@
 .hero{background-color:#f4ecdf;background-image:radial-gradient(circle at 15% 20%,#fff9ee 0,#f4ecdf 55%,#e9dbc6 100%);max-width:1700px;margin:auto;border-left:1px solid #bba17c4d;border-right:1px solid #bba17c4d}
 .hero-art-wrap{border:clamp(10px,1.3vw,18px) solid #fff9ed;border-bottom-width:clamp(25px,3vw,42px);border-radius:2px;transform:rotate(1.1deg);height:min(84dvh,840px);margin-right:clamp(2rem,5vw,5rem);box-shadow:0 4px 12px #6a423121,0 30px 65px #6a423138}
 .hero-art-caption{bottom:-2.15rem;right:1rem;background:transparent;backdrop-filter:none;color:#7a5350;font-family:'DM Serif Display',serif;font-size:.85rem;letter-spacing:.02em;text-transform:none}
-.hero-copy:after{content:"02 · 27 · 2027";display:block;margin-top:2.6rem;color:#ac845a;font-family:'DM Serif Display',serif;font-style:italic;font-size:1.05rem;letter-spacing:.08em}
+.hero-copy:after{content:"02 · 26 · 2027";display:block;margin-top:2.6rem;color:#ac845a;font-family:'DM Serif Display',serif;font-style:italic;font-size:1.05rem;letter-spacing:.08em}
 .story-section{position:relative;background:#e9dfcd;background-image:radial-gradient(#fff9eb6e 1px,transparent 1px);background-size:8px 8px;box-shadow:inset 0 1px #fff9ed}
 .story-section:after{content:"";position:absolute;right:-3%;bottom:-5%;width:clamp(130px,22vw,360px);height:clamp(130px,22vw,360px);background:url('/art/08-cultural-ephemera.webp') right bottom/contain no-repeat;opacity:.13;pointer-events:none}
 .story-image{min-height:0;height:calc(100% - clamp(2rem,7vw,7rem));margin:clamp(1rem,3.5vw,3.5rem);border:clamp(9px,1.2vw,16px) solid #fff9ed;border-bottom-width:clamp(32px,3.5vw,52px);transform:rotate(-1.4deg);box-shadow:0 8px 12px #5c3a2821,0 25px 52px #5c3a2830}

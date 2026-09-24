@@ -122,7 +122,6 @@ export default function Home() {
           <div className="opening-book-right">
             <img className="opening-cover-paper" src="/art/arch-backdrop.webp" alt="Wedding invitation arched burgundy backdrop" fetchPriority="high" />
             <div className="card-curl-shadow" aria-hidden="true" />
-            <img className="cover-garland" src="/art/10-jasmine-rose-garland.webp" alt="Traditional jasmine and rose garland" aria-hidden="true" />
             <img className="cover-kolam" src="/art/12-rice-flour-kolam.webp" alt="" aria-hidden="true" />
             <img className="cover-lamp cover-lamp-left" src="/art/11-brass-kuthuvilakku.webp" alt="" aria-hidden="true" />
             <img className="cover-lamp cover-lamp-right" src="/art/11-brass-kuthuvilakku.webp" alt="" aria-hidden="true" />
@@ -138,8 +137,7 @@ export default function Home() {
             <div className="opening-mobile-copy cover-copy">
               <span className="opening-mobile-overline cover-overline">A wedding invitation</span>
               <p className="opening-mobile-title cover-title">Shruthi <i>&amp;</i><br />Deepak</p>
-              <p className="opening-mobile-date cover-date">Saturday · 27 February 2027 · New Jersey</p>
-              <p className="cover-tamil" lang="ta">ஒளியும் ஒலியும் சேரும் தருணம்,<br />உங்கள் வருகையால் சிறக்கும் இன்பத் தருணம்.</p>
+              <p className="opening-mobile-date cover-date">Friday · 26 February 2027 · New Jersey</p>
               <button type="button" className="opening-button" onClick={() => openInvitation(true)} disabled={openingRequested} tabIndex={opened ? -1 : 0}>Turn the page <span aria-hidden="true">→</span></button>
               {SOUNDTRACK_URL && <button type="button" className="silent-button" onClick={() => openInvitation(false)} disabled={openingRequested} tabIndex={opened ? -1 : 0}>Enter without music</button>}
             </div>
@@ -165,7 +163,7 @@ export default function Home() {
         <div className="hero-copy">
           <p className="eyebrow">A celebration of sound &amp; light</p>
           <h1 id="hero-title">Shruthi <em>&amp;</em><br />Deepak</h1>
-          <p className="hero-date">Saturday, the twenty-seventh of February <span>2027</span></p>
+          <p className="hero-date">Friday, the twenty-sixth of February <span>2027</span></p>
           <p className="hero-invitation">With full hearts, we invite you to celebrate with us.</p>
           <a className="primary-link" href="#story">Discover our story <span aria-hidden="true">↓</span></a>
         </div>
@@ -191,12 +189,11 @@ export default function Home() {
         <div className="poem-arc" aria-hidden="true" />
         <p className="poem-tamil" lang="ta">ஒளியும் ஒலியும் சேரும் தருணம்,<br />உங்கள் வருகையால் சிறக்கும் இன்பத் தருணம்.</p>
         <div className="poem-rule" />
-        <p>Through every chapter, so many of you have been a part of our journey. You’ve seen us grow closer, stood by us, celebrated our happiness, and helped make our story what it is today.</p>
         <p>Now, as we take the step from you and me to us, forever, there is one thing we wish for most. Some moments are meant to be celebrated together. This is one of them.</p>
         <p className="poem-emphasis">So be there for the smiles, the happy tears, and the memories we’ll be retelling for years to come.</p>
       </section>
 
-      <section id="events" className="events-intro" aria-labelledby="events-title"><span className="section-kicker">Saturday · 27 February 2027</span><h2 id="events-title">One day.<br /><em>Two celebrations.</em></h2><p>From a sacred morning to an unforgettable night.</p><img className="events-kolam" src="/art/12-rice-flour-kolam.webp" alt="" aria-hidden="true" loading="lazy" /></section>
+      <section id="events" className="events-intro" aria-labelledby="events-title"><span className="section-kicker">Friday · 26 February 2027</span><h2 id="events-title">One day.<br /><em>Two celebrations.</em></h2><p>From a sacred morning to an unforgettable night.</p><img className="events-kolam" src="/art/12-rice-flour-kolam.webp" alt="" aria-hidden="true" loading="lazy" /></section>
 
       <section id="muhurtham" className="event-section morning-event" aria-labelledby="morning-heading">
         <div className="event-visual"><img src="/art/03-muhurtham-temple.webp" alt="Illustrated exterior of Sri Venkateswara Temple in Bridgewater at sunrise" loading="lazy" /><img className="ceremony-lamp ceremony-lamp-left" src="/art/11-brass-kuthuvilakku.webp" alt="" aria-hidden="true" loading="lazy" /><img className="ceremony-lamp ceremony-lamp-right" src="/art/11-brass-kuthuvilakku.webp" alt="" aria-hidden="true" loading="lazy" /><span className="visual-index">01 / Morning</span></div>
@@ -233,7 +230,7 @@ export default function Home() {
 
       <section id="closing" className="closing-section" aria-labelledby="closing-heading"><img className="closing-ornament" src="/art/06-ornamental-overlay.webp" alt="" loading="lazy" /><div className="closing-copy"><p className="section-kicker">A note from us</p><h2 id="closing-heading">All that’s<br /><em>missing is you.</em></h2><p>Because when we look back on this day years from now, we won’t just remember the ceremony or the celebration. We’ll remember the people who were there.</p><p>We’ve got the venue, the outfits, and each other. All that’s missing is you.</p><div className="closing-signature">Shruthi &amp; Deepak <span lang="ta">ஒலி &amp; ஒளி</span></div></div><img className="closing-couple" src="/art/02-couple-cutout.webp" alt="Illustration of Shruthi and Deepak in traditional wedding attire" loading="lazy" /></section>
 
-      <footer className="footer"><div className="footer-monogram" lang="ta">ஒலி × ஒளி</div><p>27 February 2027 · New Jersey</p><a href="#main">Back to top ↑</a></footer>
+      <footer className="footer"><div className="footer-monogram" lang="ta">ஒலி × ஒளி</div><p>26 February 2027 · New Jersey</p><a href="#main">Back to top ↑</a></footer>
       </div>
     </main>
   );
